@@ -1,0 +1,646 @@
+/* COLOURS:
+Emphasis: #FF0068;
+Lighter emphasis: #ff7fb3;
+Light grey for faded fonts: #646464;
+Light grey for backgrounds: #F5F5F5;
+*/
+
+body {
+  max-height: 100%;
+  max-width:100%;
+  line-height:1.6;
+  font-size:20px;
+  color:#444;
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  transition: background-color 0.24s;
+}
+
+h1,h2,h3 {
+  line-height:1.2
+}
+
+#joystick {
+  height: 200px;
+  width: 200px;
+  border-radius: 200px;
+  -moz-border-radius: 200px;
+  -webkit-border-radius: 200px;
+  text-align: center;
+  background-color: #61c3ed;
+  font: 24px/200px Helvetica, Arial, sans-serif;
+  cursor: all-scroll;
+  user-select: none;
+  z-index: -100;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+h1 a {
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 0;
+}
+
+a:hover {
+  color: #00274C !important;
+}
+
+#wrapper {
+  /* height: 100vh;  Stretch to height of the full page. */
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "nav main";
+}
+
+#sidenav {
+  grid-area: nav;
+  width: 400px;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: rgba(3, 12, 38, 0.924);
+  color: #fff;
+}
+
+#main {
+  grid-area: main;
+  width: auto;
+  background-color: #00274c36;
+  height: 100vh;
+}
+
+.inner {
+  margin: 2em;
+}
+
+#sidenav > #toggle-nav {
+  position: absolute;
+  left: 400px;
+  top: 0;
+  display: block;
+  padding: 1em;
+  color: #000000;
+  transition: left 0.3s;
+}
+
+#sidenav > #toggle-nav:hover {
+  color: #606060;
+}
+
+.title {
+  font-size: 22pt;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+#sidenav.inactive {
+  margin-left: -400px;  /* Move over the width of the sidebar. */
+  transition: left 0.3s, margin-left 0.3s;
+}
+
+#sidenav.inactive > #toggle-nav {
+  left: 0px;
+  /* transition: left 0.3s, margin-left 0.3s; */
+}
+
+#canvas-container {
+  height: 100%;
+  width: 100%;
+}
+
+.canvas-color{
+  background-color: #22476a;
+}
+
+canvas {
+  padding: 0;
+  display: block;
+  float: left;
+  width: 100%;
+  height: 100%;
+}
+
+.roboticon {
+  position: absolute;
+}
+
+.robotimg {
+  width: 100%;
+  height: 100%;
+}
+
+.gridcell {
+  display: inline-block;
+}
+
+.file-input-wrapper {
+  display: inline-block;
+}
+
+.cen{
+  margin-left: 5%;
+  border-radius: 50px;
+  display: none;
+}
+
+.hidden{
+  display: none
+}
+
+input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 0px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.5s;
+}
+
+.custom-file-upload:hover{
+  background-color: #0b4b86;
+}
+
+
+.button {
+  background-color: #2F65A7;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition: background-color 0.5s;
+}
+
+.labels{
+  z-index: 1
+}
+
+.content h2 {
+  display: block;
+  font-size: 2rem;
+  color: #111;
+  font-weight: 500;
+  line-height: 2rem;
+  letter-spacing: 1px;
+}
+
+.content span {
+  color: #555;
+  font-size: 1.4rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.button:hover {
+  background-color: #D86018;
+}
+
+.button.inactive {
+  background-color: #888;
+}
+
+.button.inactive:hover {
+  background-color: #888;
+}
+
+.map-color{
+  background-color: #a4a02d;
+}
+
+.button-wrapper-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.button-wrapper-col > button {
+  margin: 0 0 1em 0;
+}
+
+.button-wrapper-col > .button {
+  margin: 0 0 1em 0;
+}
+
+.button-wrapper-col > button:last-of-type {
+    margin-bottom: 0;
+}
+
+.button-wrapper-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 0.5em;
+}
+
+.button-wrapper-row > button {
+  margin: 0 1em 0 0;
+}
+
+.button-wrapper-row > button:last-of-type {
+    margin-right: 0;
+}
+
+.robot-info{
+  margin-bottom: 2px;
+}
+
+.subpanel {
+  font-size: 80%;
+  padding-left: 1em;
+  margin-bottom: 1em;
+}
+
+.status-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.status {
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  width: fit-content;
+  color: white;
+  padding: 0.5em 1em;
+  float: right;
+}
+
+.status-msg {
+  padding: 1em 0;
+  font-size: 14px;
+}
+
+.progress {
+  margin: 1em auto;
+}
+
+/* Toggles */
+
+.state-toggle-wrapper {
+  margin: 1em 0;
+}
+
+.toggle-wrapper {
+  padding-right: 1em;
+  display: inline-block;
+  text-decoration: none;
+  margin-bottom: 0.75em;
+  width: 100%;
+}
+
+.toggle-wrapper:last-child {
+  margin-bottom: 0;
+}
+
+.info {
+  position: relative;
+  margin: auto;
+}
+
+.info-icon {
+  padding: 50%;
+  cursor: pointer;
+}
+
+.toggle{
+  z-index: 1;
+}
+
+.explain {
+  position: absolute;
+  font-size: 14px;
+  left: 430px;
+  width: fit-content;
+  max-width: 500px;
+  padding: 0.75em;
+  background-color: #cafaebef;
+  color: #161e36;
+  z-index: 3;
+}
+
+/* Nav */
+
+#nav {
+  margin: 1em 0 0 0;
+  text-align: center;
+  background-color: #F5F5F5;
+  color:#444;
+}
+
+nav > button {
+  background-color: inherit;
+  border-style: none;
+  font: inherit;
+  padding: 1em 2em;
+}
+
+nav > button:hover {
+  background-color: #FF0068;
+  color: #fff;
+}
+
+button > a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-left: 10px;
+  z-index: inherit;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Small version of the switch. */
+.switch.small {
+  width: 44px;
+  height: 26px;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+/* Small version of the switch. */
+.slider.small:before  {
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+input:checked + .slider.small:before {
+  -webkit-transform: translateX(18px);
+  -ms-transform: translateX(18px);
+  transform: translateX(18px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.small.round {
+  border-radius: 26px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.left-space{
+  padding-left: 15px;
+}
+
+.top-spacing{
+  padding: 20px 0px;
+}
+
+.left-margin{
+  margin-left: 100px;
+}
+
+.top-and-bottom-space{
+  padding-bottom: 10px;
+}
+
+.alternate-color{
+  background-color:#7e8018;
+}
+
+/* The 4 different colors for the start and stop buttons on animations */
+.stop-color{
+  background-color:#a12118;
+}
+
+.start-color{
+  background-color: #1a8d37;
+}
+
+.stop-color2{
+  background-color:#9b3e38;
+}
+
+.start-color2{
+  background-color: #167541;
+}
+
+.upload-color{
+  background-color:rgb(122, 64, 136)
+}
+
+.new-background-color{
+  background: #021f3a;
+  color:#ccc;
+}
+
+.pf{
+  position: fixed;
+  z-index: 3;
+  background: #00274C;
+}
+
+#sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+#sidenav a:hover {
+  color: #f1f1f1;
+}
+
+#sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.drive-panel-wrapper {
+
+  /* padding-top: 1em; */
+}
+
+.drive-buttons {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  grid-template-areas: "turn-left turn-right";
+}
+
+/* Drive forward robot */
+#move-str {
+  grid-area: forward;
+}
+
+/* Drive back robot */
+#move-back {
+  grid-area: back;
+}
+
+/* Drive to the right */
+#move-right {
+  grid-area: right;
+}
+
+/* Drive to the left */
+#move-left {
+  grid-area: left;
+}
+
+/* Turn robot to the left */
+#turn-left {
+  grid-area: turn-left;
+}
+
+/* Turn robot to the right */
+#turn-right {
+  grid-area: turn-right;
+}
+
+.drive-buttons > button {
+  margin: 0.25em;
+  padding: 10px;
+}
+
+.drive-bottom {
+  margin-right: 30.4%;
+}
+
+/* This is for the drive buttons up, down, left, and right */
+.drive-move {
+  width: 50px;
+  height: 50px;
+}
+
+/* These buttons are to turn the robot left and right */
+.drive-turn {
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+}
+
+/* Inverts colors*/
+.invert{
+  -webkit-filter: invert(1);
+  filter: invert(1);
+}
+
+.white-border{
+  border-color: #F5F5F5;
+}
+
+.dbutton-animation{
+  animation:drive_buttons 0.5s 1;
+}
+
+.startbtn-animation {
+  animation:start_button 1s 1;
+}
+
+.stopbtn-animation {
+  animation:stop_button 1s 1;
+}
+
+.keydown-drivecolor{
+  background-color:rgb(28, 162, 186)
+}
+
+.joyStyle{
+  width:200px;
+  height:200px;
+  margin: 0 auto 10px auto;
+  justify-items: center;
+  align-items: center;
+}
+
+/* Reminder: Add @-webkit-keyframes if animation doesn't appear on some devices */
+
+@keyframes drive_buttons{
+  0%      {background-color:rgba(123, 131, 18, 0.6);}
+  100%    {background-color:rgba(25, 113, 129)}
+}
+
+@keyframes start_button{
+  0%      {background-color:rgba(9, 138, 63, 0.6);}
+  100%    {background-color:rgb(10, 77, 15)}
+}
+
+@keyframes stop_button{
+  0%      {background-color:rgba(156, 48, 21, 0.6);}
+  100%    {background-color:rgb(102, 21, 15)}
+}

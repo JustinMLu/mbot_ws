@@ -1,0 +1,2 @@
+[submodule "rplidar_sdk"]
+	branch = mbot/v1.12.1

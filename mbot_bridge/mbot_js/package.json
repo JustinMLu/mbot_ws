@@ -1,0 +1,16 @@
+{
+  "name": "mbot-js-api",
+  "version": "1.0.0",
+  "description": "A Javascript API for the MBot",
+  "main": "/src/robot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "author": "Jana Pavlasek",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  }
+}

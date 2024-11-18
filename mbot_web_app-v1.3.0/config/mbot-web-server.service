@@ -1,0 +1,14 @@
+[Unit]
+Description=Server for the MBot web app
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+ExecStart=WEBAPP_ENV_PATH/bin/python3 /data/www/mbot/api/mbot_omni_app.py
+User=root
+
+[Install]
+WantedBy=multi-user.target

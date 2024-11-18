@@ -1,0 +1,6 @@
+/build
+.vscode/settings.json
+*scripts/cam_calibration_data.npz
+*scripts/cam_config.txt
+*scripts/images/*.jpg
+*pycache*

@@ -1,0 +1,4 @@
+[submodule "rplidar_sdk"]
+	path = rplidar_sdk
+	url = https://github.com/MBot-Project-Development/rplidar_sdk.git
+	branch = mbot/v1.12.1

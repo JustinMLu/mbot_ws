@@ -1,0 +1,14 @@
+[Unit]
+Description=MBot Bridge Server service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=5
+ExecStart=/usr/bin/python -m mbot_bridge.server --log-file /var/log/mbot/mbot_bridge.log --discard-msgs 5
+User=root
+
+[Install]
+WantedBy=network-online.target

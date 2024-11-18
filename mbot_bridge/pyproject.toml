@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mbot_bridge"
+version = "1.0.0"
+authors = [
+  { name="Jana Pavlasek", email="jbpavlasek@gmail.com" },
+]
+description = "Bridge server and API for synchronous robot operation."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "argparse",
+    "pyyaml",
+	  "websockets",
+    "numpy",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mbot_bridge = ["config/*.yml"]
+
+[project.urls]
+"Homepage" = "https://github.com/MBot-Project-Development/mbot_bridge"
+"Bug Tracker" = "https://github.com/MBot-Project-Development/mbot_bridge/issues"
