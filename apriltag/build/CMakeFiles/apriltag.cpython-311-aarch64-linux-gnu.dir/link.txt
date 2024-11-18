@@ -1,0 +1,1 @@
+/usr/bin/cc -fPIC -O3 -DNDEBUG -shared  -o apriltag.cpython-311-aarch64-linux-gnu.so "CMakeFiles/apriltag.cpython-311-aarch64-linux-gnu.dir/apriltag_pywrap.c.o"  -Wl,-rpath,/home/mbot/mbot_ws/apriltag/build: libapriltag.so.3.4.2 /usr/lib/aarch64-linux-gnu/libpython3.11.so -lm 

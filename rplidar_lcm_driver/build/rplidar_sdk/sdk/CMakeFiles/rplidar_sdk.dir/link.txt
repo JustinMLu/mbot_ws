@@ -1,0 +1,2 @@
+/usr/bin/ar qc librplidar_sdk.a CMakeFiles/rplidar_sdk.dir/sdk/src/arch/linux/net_serial.cpp.o CMakeFiles/rplidar_sdk.dir/sdk/src/arch/linux/net_socket.cpp.o CMakeFiles/rplidar_sdk.dir/sdk/src/arch/linux/timer.cpp.o CMakeFiles/rplidar_sdk.dir/sdk/src/hal/thread.cpp.o CMakeFiles/rplidar_sdk.dir/sdk/src/rplidar_driver.cpp.o
+/usr/bin/ranlib librplidar_sdk.a

@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++11 CMakeFiles/mbot_timesync.dir/src/timesync.cpp.o CMakeFiles/mbot_timesync.dir/src/timestamp.c.o -o mbot_timesync  -Wl,-rpath,/usr/local/lib /usr/local/lib/liblcm.so.1.5.0 

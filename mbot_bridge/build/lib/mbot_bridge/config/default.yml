@@ -1,0 +1,23 @@
+lcm_address: "udpm://239.255.76.67:7667?ttl=1"
+# Configure which channels to listen to. This must be either the string "all",
+# to subscribe to all the available LCM channels, or a list of the channels to
+# subscribe to. The list should contain dictionaries with two keys: "channel",
+# with the channel name, and "type", with the type name. For example:
+#   subs:
+#     - channel: "LIDAR"
+#       type: "lidar_t"
+#     - channel: "SLAM_POSE"
+#       type: "pose2D_t"
+# The "type" can be any type that can be imported by the bridge, written in the
+# form "my_custom_pkg.my_type_t". If no module is specified, the bridge will
+# attempt to load the type from the package "mbot_lcm_msgs".
+subs: "all"
+# A list of strings with channel names to ignore.
+ignore_channels: []
+# A list of strings with the names of Python packages to search for LCM types.
+# The bridge will look here to try to determine the type of a message if it was
+# not provided. These must be importable by the bridge.
+lcm_type_modules:
+  - mbot_lcm_msgs
+# The map channel, for efficiency considerations.
+map_channel: SLAM_MAP

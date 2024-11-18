@@ -1,0 +1,12 @@
+/home/mbot/mbot_ws/mbot_gui/build/CMakeFiles/botgui.dir
+/home/mbot/mbot_ws/mbot_gui/build/CMakeFiles/edit_cache.dir
+/home/mbot/mbot_ws/mbot_gui/build/CMakeFiles/rebuild_cache.dir
+/home/mbot/mbot_ws/mbot_gui/build/common_utils/CMakeFiles/common_utils.dir
+/home/mbot/mbot_ws/mbot_gui/build/common_utils/CMakeFiles/edit_cache.dir
+/home/mbot/mbot_ws/mbot_gui/build/common_utils/CMakeFiles/rebuild_cache.dir
+/home/mbot/mbot_ws/mbot_gui/build/vx/CMakeFiles/vx.dir
+/home/mbot/mbot_ws/mbot_gui/build/vx/CMakeFiles/edit_cache.dir
+/home/mbot/mbot_ws/mbot_gui/build/vx/CMakeFiles/rebuild_cache.dir
+/home/mbot/mbot_ws/mbot_gui/build/imagesource/CMakeFiles/imagesource.dir
+/home/mbot/mbot_ws/mbot_gui/build/imagesource/CMakeFiles/edit_cache.dir
+/home/mbot/mbot_ws/mbot_gui/build/imagesource/CMakeFiles/rebuild_cache.dir

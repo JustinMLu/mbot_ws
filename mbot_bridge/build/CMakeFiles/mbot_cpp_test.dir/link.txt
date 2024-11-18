@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -O2 -g -DNDEBUG CMakeFiles/mbot_cpp_test.dir/test/test_mbot_api.cpp.o -o mbot_cpp_test  -Wl,-rpath,/home/mbot/mbot_ws/mbot_bridge/build libmbot_bridge_cpp.so 

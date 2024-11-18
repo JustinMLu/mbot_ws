@@ -1,0 +1,9 @@
+/usr/local/lib/libmbot_bridge_cpp.so
+/usr/local/include/mbot_bridge/json_utils.h
+/usr/local/include/mbot_bridge/lcm_utils.h
+/usr/local/include/mbot_bridge/comms.h
+/usr/local/include/mbot_bridge/robot.h
+/usr/local/include/mbot_bridge/mbot_json_msgs.h
+/usr/local/lib/cmake/mbot_bridge/mbot_bridgeTargets.cmake
+/usr/local/lib/cmake/mbot_bridge/mbot_bridgeTargets-relwithdebinfo.cmake
+/usr/local/lib/cmake/mbot_bridge/mbot_bridgeConfig.cmake

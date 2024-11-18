@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcommon_utils.a CMakeFiles/common_utils.dir/src/utils/geometric/pose_trace.cpp.o CMakeFiles/common_utils.dir/src/utils/getopt.c.o CMakeFiles/common_utils.dir/src/utils/timestamp.c.o CMakeFiles/common_utils.dir/src/utils/zarray.c.o CMakeFiles/common_utils.dir/src/utils/zhash.c.o
+/usr/bin/ranlib libcommon_utils.a

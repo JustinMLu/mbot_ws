@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -std=c++14 -O2 -g -DNDEBUG -shared -Wl,-soname,libmbot_bridge_cpp.so -o libmbot_bridge_cpp.so CMakeFiles/mbot_bridge_cpp.dir/src/robot.cpp.o 

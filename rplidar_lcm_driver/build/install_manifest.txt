@@ -1,0 +1,10 @@
+/usr/local/bin/rplidar_driver
+/usr/local/include/rplidar.h
+/usr/local/include/rplidar_cmd.h
+/usr/local/include/rplidar_driver.h
+/usr/local/include/rplidar_protocol.h
+/usr/local/include/rptypes.h
+/usr/local/include/hal/types.h
+/usr/local/lib/librplidar_sdk.a
+/usr/local/lib/rplidar_sdk/rplidar_sdkConfig.cmake
+/usr/local/lib/rplidar_sdk/rplidar_sdk-targets.cmake

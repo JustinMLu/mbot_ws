@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++11 -pthread -O2 -g -DNDEBUG -rdynamic CMakeFiles/rplidar_driver.dir/src/rplidar_driver.cpp.o -o rplidar_driver  -Wl,-rpath,/usr/local/lib /usr/local/lib/libmbot_lcm_msgs.a -lpthread rplidar_sdk/sdk/librplidar_sdk.a /usr/local/lib/liblcm.so.1.5.0 

@@ -1,0 +1,9 @@
+/home/mbot/mbot_ws/apriltag/build/CMakeFiles/apriltag.dir
+/home/mbot/mbot_ws/apriltag/build/CMakeFiles/apriltag_py_docstrings.dir
+/home/mbot/mbot_ws/apriltag/build/CMakeFiles/apriltag.cpython-311-aarch64-linux-gnu.dir
+/home/mbot/mbot_ws/apriltag/build/CMakeFiles/edit_cache.dir
+/home/mbot/mbot_ws/apriltag/build/CMakeFiles/rebuild_cache.dir
+/home/mbot/mbot_ws/apriltag/build/CMakeFiles/list_install_components.dir
+/home/mbot/mbot_ws/apriltag/build/CMakeFiles/install.dir
+/home/mbot/mbot_ws/apriltag/build/CMakeFiles/install/local.dir
+/home/mbot/mbot_ws/apriltag/build/CMakeFiles/install/strip.dir
