@@ -1,4 +1,4 @@
-MBot SLAM and Exploration (mbot_ws)
+MBot Pathfinder: SLAM and Exploration
 ======
 ![mbot_series](https://github.com/user-attachments/assets/07700a31-7174-439a-a9da-78043354b32e)
 
