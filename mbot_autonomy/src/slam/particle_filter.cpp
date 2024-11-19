@@ -59,7 +59,6 @@ mbot_lcm_msgs::pose2D_t ParticleFilter::updateFilter(const mbot_lcm_msgs::pose2D
                                                         const OccupancyGrid& map)
 {
     bool hasRobotMoved = actionModel_.updateAction(odometry);
-
     auto prior = resamplePosteriorDistribution(map);
     auto proposal = computeProposalDistribution(prior);
     posterior_ = computeNormalizedPosterior(proposal, laser, map);
@@ -80,7 +79,6 @@ mbot_lcm_msgs::pose2D_t ParticleFilter::updateFilterActionOnly(const mbot_lcm_ms
     {
         // auto prior = resamplePosteriorDistribution();
         // auto proposal = computeProposalDistribution(posterior_);
-
         auto prior = resamplePosteriorDistribution();
         auto proposal = computeProposalDistribution(prior);
         posterior_ = proposal;
@@ -112,9 +110,37 @@ ParticleList ParticleFilter::resamplePosteriorDistribution(const OccupancyGrid& 
                                                            const bool reinvigorate)
 {
     //////////// TODO: Implement your algorithm for resampling from the posterior distribution ///////////////////
+    // Low variance sampler from textbook
+    ParticleList newParticles;
+
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    double weight = 1.0 / kNumParticles_;
+    std::uniform_real_distribution<double> dist(0.0, weight); // uniform distribution
     
-    
-    return ParticleList();  // Placeholder
+    double r = dist(generator);
+    double c = posterior_[0].weight;
+
+    int i = 0;
+    int j = 0;
+
+    while (j < kNumParticles_) {
+        double U = r + j * (1.0 / kNumParticles_);
+
+        while (U > c && i < posterior_.size() - 1) { // Prevent out-of-bounds (CHECK THIS)
+            i++;
+            c += posterior_[i].weight;
+        }
+        newParticles.push_back(posterior_[i]);
+        j++;
+    }
+
+    // Optionally reinvigorate to maintain diversity (CHECK THIS)
+    if(reinvigorate){
+        reinvigoratePriorDistribution(newParticles);
+    }
+
+    return newParticles;
 }
 
 
@@ -123,33 +149,37 @@ ParticleList ParticleFilter::resamplePosteriorDistribution(const bool keep_best,
 {
     //////////// TODO: Implement your algorithm for resampling from the posterior distribution ///////////////////
 
+    // Low variance sampler from textbook
     ParticleList newParticles;
 
-    // Low-Variance Resampling
     std::random_device rd;
     std::mt19937 generator(rd());
-    std::uniform_real_distribution<double> dist(0.0, 1.0 / kNumParticles_);
+    double weight = 1.0 / kNumParticles_;
+    std::uniform_real_distribution<double> dist(0.0, weight); // uniform distribution
+    
     double r = dist(generator);
-
     double c = posterior_[0].weight;
-    int i = 0;
 
-    for(int j = 0; j < kNumParticles_; j++) {
+    int i = 0;
+    int j = 0;
+
+    while (j < kNumParticles_) {
         double U = r + j * (1.0 / kNumParticles_);
-        while(U > c && i < posterior_.size() - 1) { // Prevent out-of-bounds
+
+        while (U > c && i < posterior_.size() - 1) { // Prevent out-of-bounds (CHECK THIS)
             i++;
             c += posterior_[i].weight;
         }
         newParticles.push_back(posterior_[i]);
+        j++;
     }
 
-    // Optionally reinvigorate to maintain diversity
+    // Optionally reinvigorate to maintain diversity (CHECK THIS)
     if(reinvigorate){
         reinvigoratePriorDistribution(newParticles);
     }
 
     return newParticles;
-
 }
 
 
@@ -217,9 +247,33 @@ ParticleList ParticleFilter::computeNormalizedPosterior(const ParticleList& prop
 {
     /////////// TODO: Implement your algorithm for computing the normalized posterior distribution using the
     ///////////       particles in the proposal distribution
+    ParticleList posterior;
+    double sumOfWeights = 0.0;
 
+    // Compute the likelihood of each particle
+    for (auto &p : proposal) {
+
+        // Modify weight of p based on sensor model WITHOUT messing with proposal particles
+        mbot_lcm_msgs::particle_t pCopy = p;
+        pCopy.weight = sensorModel_.likelihood(pCopy, laser, map);
+        sumOfWeights += pCopy.weight;
+        posterior.push_back(pCopy);
+    }
+
+    // Normalize the weights (likelihoods?)
+    for (auto& p : posterior) {
+        p.weight /= sumOfWeights;
+        // if (sumOfWeights > 0.0) {
+        //     p.weight /= sumOfWeights;
+        // } 
+        // else {
+        //     // Assign uniform weight to avoid division by zero
+        //     p.weight = 1.0f / kNumParticles_;
+        // }
+    }
     
-    return ParticleList();  // Placeholder
+    return posterior;
+
 }
 
 
@@ -229,11 +283,7 @@ mbot_lcm_msgs::pose2D_t ParticleFilter::estimatePosteriorPose(const ParticleList
     // Figure out which pose to take for the posterior pose
     // Weighted average is simple, but could be very bad
     // Maybe only take the best x% and then average.
-
-
-    mbot_lcm_msgs::pose2D_t pose;
-    
-
+    mbot_lcm_msgs::pose2D_t pose = computeParticlesAverage(posterior);
     return pose;
 
 

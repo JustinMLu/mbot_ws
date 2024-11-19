@@ -8,7 +8,7 @@
 
 
 ActionModel::ActionModel(void)
-: k1_(0.1f) // Movement variability gain
+: k1_(0.05f) // Movement variability gain
 , k2_(0.05f) // Turn variability gain
 , min_dist_(0.0025)
 , min_theta_(0.02)
