@@ -110,37 +110,39 @@ ParticleList ParticleFilter::resamplePosteriorDistribution(const OccupancyGrid& 
                                                            const bool reinvigorate)
 {
     //////////// TODO: Implement your algorithm for resampling from the posterior distribution ///////////////////
-    // Low variance sampler from textbook
-    ParticleList newParticles;
+    // // Low variance sampler from textbook
+    // ParticleList newParticles;
 
-    std::random_device rd;
-    std::mt19937 generator(rd());
-    double weight = 1.0 / kNumParticles_;
-    std::uniform_real_distribution<double> dist(0.0, weight); // uniform distribution
+    // std::random_device rd;
+    // std::mt19937 generator(rd());
+    // double weight = 1.0 / kNumParticles_;
+    // std::uniform_real_distribution<double> dist(0.0, weight); // uniform distribution
     
-    double r = dist(generator);
-    double c = posterior_[0].weight;
+    // double r = dist(generator);
+    // double c = posterior_[0].weight;
 
-    int i = 0;
-    int j = 0;
+    // int i = 0;
+    // int j = 0;
 
-    while (j < kNumParticles_) {
-        double U = r + j * (1.0 / kNumParticles_);
+    // while (j < kNumParticles_) {
+    //     double U = r + j * (1.0 / kNumParticles_);
 
-        while (U > c && i < posterior_.size() - 1) { // Prevent out-of-bounds (CHECK THIS)
-            i++;
-            c += posterior_[i].weight;
-        }
-        newParticles.push_back(posterior_[i]);
-        j++;
-    }
+    //     while (U > c && i < posterior_.size() - 1) { // Prevent out-of-bounds (CHECK THIS)
+    //         i++;
+    //         c += posterior_[i].weight;
+    //     }
+    //     newParticles.push_back(posterior_[i]);
+    //     j++;
+    // }
 
-    // Optionally reinvigorate to maintain diversity (CHECK THIS)
-    if(reinvigorate){
-        reinvigoratePriorDistribution(newParticles);
-    }
+    // // Optionally reinvigorate to maintain diversity (CHECK THIS)
+    // if(reinvigorate){
+    //     reinvigoratePriorDistribution(newParticles);
+    // }
 
-    return newParticles;
+    // return newParticles;
+    ParticleList prior = lowVarianceSample(kNumParticles_, posterior_);
+    return prior;
 }
 
 
@@ -149,37 +151,39 @@ ParticleList ParticleFilter::resamplePosteriorDistribution(const bool keep_best,
 {
     //////////// TODO: Implement your algorithm for resampling from the posterior distribution ///////////////////
 
-    // Low variance sampler from textbook
-    ParticleList newParticles;
+    // // Low variance sampler from textbook
+    // ParticleList newParticles;
 
-    std::random_device rd;
-    std::mt19937 generator(rd());
-    double weight = 1.0 / kNumParticles_;
-    std::uniform_real_distribution<double> dist(0.0, weight); // uniform distribution
+    // std::random_device rd;
+    // std::mt19937 generator(rd());
+    // double weight = 1.0 / kNumParticles_;
+    // std::uniform_real_distribution<double> dist(0.0, weight); // uniform distribution
     
-    double r = dist(generator);
-    double c = posterior_[0].weight;
+    // double r = dist(generator);
+    // double c = posterior_[0].weight;
 
-    int i = 0;
-    int j = 0;
+    // int i = 0;
+    // int j = 0;
 
-    while (j < kNumParticles_) {
-        double U = r + j * (1.0 / kNumParticles_);
+    // while (j < kNumParticles_) {
+    //     double U = r + j * (1.0 / kNumParticles_);
 
-        while (U > c && i < posterior_.size() - 1) { // Prevent out-of-bounds (CHECK THIS)
-            i++;
-            c += posterior_[i].weight;
-        }
-        newParticles.push_back(posterior_[i]);
-        j++;
-    }
+    //     while (U > c && i < posterior_.size() - 1) { // Prevent out-of-bounds (CHECK THIS)
+    //         i++;
+    //         c += posterior_[i].weight;
+    //     }
+    //     newParticles.push_back(posterior_[i]);
+    //     j++;
+    // }
 
-    // Optionally reinvigorate to maintain diversity (CHECK THIS)
-    if(reinvigorate){
-        reinvigoratePriorDistribution(newParticles);
-    }
+    // // Optionally reinvigorate to maintain diversity (CHECK THIS)
+    // if(reinvigorate){
+    //     reinvigoratePriorDistribution(newParticles);
+    // }
 
-    return newParticles;
+    // return newParticles;
+    ParticleList prior = lowVarianceSample(kNumParticles_, posterior_);
+    return prior;
 }
 
 
