@@ -23,8 +23,8 @@ void SensorModel::initialize_bfs_offsets()
     {
         for (int j = -search_range; j <= search_range; j++)
         {
-            bfs_offsets_.push_back(Point<int>(i, j));
-            // bfs_offset_.emplace_back(Point<int>(i, j));
+            if (i == 0 && j == 0) continue;
+            bfs_offsets_.emplace_back(i, j);
         }
     }
     
@@ -36,22 +36,11 @@ double SensorModel::likelihood(const mbot_lcm_msgs::particle_t& sample,
 {
     /// TODO: Compute the likelihood of the given particle using the provided laser scan and map. 
     MovingLaserScan movingScan(scan, sample.parent_pose, sample.pose);
-    float likelihood;
+    double likelihood;
 
-    for (const auto &ray : movingScan) {
-        Point<float> rayEndPointGlobal = getRayEndPointOnMap(ray, map);
-        Point<float> rayEndPoint = global_position_to_grid_position(rayEndPointGlobal, map);
-
-        // Nearest occupied cell from the ray end point
-        Point<int> nearest = gridBFS(rayEndPoint, map);
-
-        if (nearest.x >= 0 && nearest.y >= 0) {
-            float zHitProb = NormalPdf(distance_between_points(rayEndPoint, nearest) / map.metersPerCell());
-            float zRandProb = 1.0 / max_ray_range_;
-            likelihood *= (0.5 * zHitProb) + (0.0075 * zRandProb); // Adjust constants
-        }
+    for (auto &ray : movingScan) {
+        likelihood += scoreRay(ray, map);
     }
-
     return likelihood;
 }
 
@@ -64,7 +53,7 @@ double SensorModel::scoreRay(const adjusted_ray_t& ray, const OccupancyGrid& map
     Point<int> nearest = gridBFS(rayEndPoint, map);
     int dx = rayEndPoint.x - nearest.x;
     int dy = rayEndPoint.y - nearest.y;
-    float distance = std::sqrt(dx*dx + dy*dy);
+    double distance = std::sqrt(dx*dx + dy*dy);
 
     return NormalPdf(distance) * offset_quality_weight;
 }
@@ -93,12 +82,23 @@ Point<int> SensorModel::gridBFS(const Point<int> end_point, const OccupancyGrid&
         }
     }
     return nearest;
+
+
+    if (map.isCellInGrid(end_point.x, end_point.y) && map.logOdds(end_point.x, end_point.y) >= occupancy_threshold_) {
+        return end_point;
+    }
+    for (auto &offset : bfs_offsets_) {
+        Point<int> current = end_point + offset;
+        if (map.isCellInGrid(current.x, current.y) && map.logOdds(current.x, current.y) >= occupancy_threshold_) {
+            return current;
+        }
+    }
 }
 
 Point<float> SensorModel::getRayEndPointOnMap(const adjusted_ray_t& ray, const OccupancyGrid& map)
 {
     /// TODO: Calculate the end point of a given ray on the map 
-    Point<double> rayEndPointGlobal(ray.origin.x + ray.range * std::cos(ray.theta), 
+    Point<float> rayEndPointGlobal(ray.origin.x + ray.range * std::cos(ray.theta), 
                                 ray.origin.y + ray.range * std::sin(ray.theta));
 
     return rayEndPointGlobal;
