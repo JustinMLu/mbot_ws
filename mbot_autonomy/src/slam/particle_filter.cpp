@@ -110,37 +110,7 @@ ParticleList ParticleFilter::resamplePosteriorDistribution(const OccupancyGrid& 
                                                            const bool reinvigorate)
 {
     //////////// TODO: Implement your algorithm for resampling from the posterior distribution ///////////////////
-    // // Low variance sampler from textbook
-    // ParticleList newParticles;
-
-    // std::random_device rd;
-    // std::mt19937 generator(rd());
-    // double weight = 1.0 / kNumParticles_;
-    // std::uniform_real_distribution<double> dist(0.0, weight); // uniform distribution
-    
-    // double r = dist(generator);
-    // double c = posterior_[0].weight;
-
-    // int i = 0;
-    // int j = 0;
-
-    // while (j < kNumParticles_) {
-    //     double U = r + j * (1.0 / kNumParticles_);
-
-    //     while (U > c && i < posterior_.size() - 1) { // Prevent out-of-bounds (CHECK THIS)
-    //         i++;
-    //         c += posterior_[i].weight;
-    //     }
-    //     newParticles.push_back(posterior_[i]);
-    //     j++;
-    // }
-
-    // // Optionally reinvigorate to maintain diversity (CHECK THIS)
-    // if(reinvigorate){
-    //     reinvigoratePriorDistribution(newParticles);
-    // }
-
-    // return newParticles;
+   
     ParticleList prior = lowVarianceSample(kNumParticles_, posterior_);
     return prior;
 }
@@ -150,38 +120,6 @@ ParticleList ParticleFilter::resamplePosteriorDistribution(const bool keep_best,
                                                            const bool reinvigorate)
 {
     //////////// TODO: Implement your algorithm for resampling from the posterior distribution ///////////////////
-
-    // // Low variance sampler from textbook
-    // ParticleList newParticles;
-
-    // std::random_device rd;
-    // std::mt19937 generator(rd());
-    // double weight = 1.0 / kNumParticles_;
-    // std::uniform_real_distribution<double> dist(0.0, weight); // uniform distribution
-    
-    // double r = dist(generator);
-    // double c = posterior_[0].weight;
-
-    // int i = 0;
-    // int j = 0;
-
-    // while (j < kNumParticles_) {
-    //     double U = r + j * (1.0 / kNumParticles_);
-
-    //     while (U > c && i < posterior_.size() - 1) { // Prevent out-of-bounds (CHECK THIS)
-    //         i++;
-    //         c += posterior_[i].weight;
-    //     }
-    //     newParticles.push_back(posterior_[i]);
-    //     j++;
-    // }
-
-    // // Optionally reinvigorate to maintain diversity (CHECK THIS)
-    // if(reinvigorate){
-    //     reinvigoratePriorDistribution(newParticles);
-    // }
-
-    // return newParticles;
     ParticleList prior = lowVarianceSample(kNumParticles_, posterior_);
     return prior;
 }
@@ -287,7 +225,18 @@ mbot_lcm_msgs::pose2D_t ParticleFilter::estimatePosteriorPose(const ParticleList
     // Figure out which pose to take for the posterior pose
     // Weighted average is simple, but could be very bad
     // Maybe only take the best x% and then average.
-    mbot_lcm_msgs::pose2D_t pose = computeParticlesAverage(posterior);
+
+    ParticleList sorted_particles = posterior;
+    std::sort(sorted_particles.begin(), sorted_particles.end(), 
+        [](const mbot_lcm_msgs::particle_t& a, const mbot_lcm_msgs::particle_t& b) -> bool
+        {
+            return a.weight > b.weight;
+        });
+
+    int num_particles = static_cast<int>(0.15 * sorted_particles.size());
+    ParticleList selected = ParticleList(sorted_particles.begin(), sorted_particles.begin() + num_particles); // maybe change to declaration
+
+    mbot_lcm_msgs::pose2D_t pose = computeParticlesAverage(selected);
     return pose;
 
 
